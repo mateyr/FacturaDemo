@@ -112,9 +112,17 @@ public class FrmFacturaDemo extends javax.swing.JFrame {
        
         int rowtoRemove = pnlTableProducto.getTblProduc().getSelectedRow();
         tableModel.removeRow(rowtoRemove);
-        tableModel.fireTableDataChanged();
-        pnlProducto.repaint();
+      
     
+        int subTotal = 0;
+      
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+          subTotal = subTotal + (Integer.parseInt((String) tableModel.getValueAt(i, 3)) * Integer.parseInt((String) tableModel.getValueAt(i, 2)));
+        }
+        
+        pnlTableProducto.getLblSubTotal().setText("Subtotal  es:" + subTotal);
+        pnlTableProducto.getLblIVA().setText("IVA:" +  (15 * subTotal) / 100);
+        pnlTableProducto.getLblTotal().setText("Total:" + (subTotal + (15 * subTotal) / 100));
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
